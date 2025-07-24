@@ -1,0 +1,9 @@
+* {
+    margin: 0;
+    padding: 5px;
+    font-family: 'Averia Serif Libre';
+    box-sizing: border-box;
+}
+h1 {
+    text-align: center;
+}

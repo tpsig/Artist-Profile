@@ -1,0 +1,325 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Averia Serif Libre';
+    box-sizing: border-box;
+}
+body {
+    color: rgb(55, 55, 55);
+    background-color: rgb(255, 245, 230);
+}
+h1 {
+    font-size: 50px;
+}
+h2 {
+    font-size: 50px;
+}
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.5s ease-out;
+}
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*-----------------Header---------------------*/
+#container {
+    padding: 20px 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90%;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: rgb(255, 245, 230);
+    padding: 5px 0 40px 0;
+}
+nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0 50px;
+}
+nav ul li {
+    list-style: none;
+    margin: 10px 15px;
+}
+nav ul li a {
+    color: rgb(55, 55, 55);
+    text-decoration: none;
+    position: relative;
+    font-size: 20px;
+    transition: .5s ease-in-out;
+}
+nav ul li a:hover {
+    color: rgb(20, 20, 20);
+    font-size: 21px;
+}
+.title {
+    font-family: 'Gaegu';
+    font-size: 7rem;
+    color: rgb(55, 55, 55);
+    margin: 0;
+    text-align: center;
+}
+
+/* Screen Sizing */
+@media (max-width: 768px) {
+    #container {
+      padding: 20px 40px;
+    }
+
+    .title {
+      font-size: 5rem;
+    }
+    nav {
+      padding: 5px 0 40px 0;
+    }
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin: 10px 0;
+    }
+    nav ul li a:hover {
+      color: rgb(20, 20, 20);
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #container {
+      padding: 10px 20px;
+    }
+
+    .title {
+      font-size: 3rem;
+    }
+    nav {
+      padding: 5px 0 40px 0;
+    }
+    nav ul li a {
+      font-size: 15px;
+    }
+    nav ul li a:hover {
+      color: rgb(20, 20, 20);
+      font-size: 16px;
+    }
+  }
+/*-----------------Quote---------------------*/
+.quote-section {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(rgba(55, 55, 55, 0.5), rgb(55, 55, 55, 0.75));
+    border-radius: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    transition: height 1.1s;
+    overflow: hidden;
+}
+.quote {
+    text-align: center;
+    display: block;
+    color: rgb(255, 245, 230);
+}
+
+/*-----------------Image---------------------*/
+.img-container {
+    display: flex;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+    margin-top: -45px;
+}
+.section-image-1 {
+   display: flex;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    object-position: top;
+    justify-content: center;
+    transition: transform 1.1s;
+
+  @media (max-width: 768px) {
+    .img-container {
+        height: auto;
+    }
+  }
+}
+.img-container img {
+    transition: transform 1.5s;
+}
+.img-container img:hover {
+    transform: scale(1.05);
+}
+.img-container.persistent img {
+    transform: scale(1.05);
+}
+.img-container.persistent .quote-section {
+    height: 100%;
+}
+
+/*-----------------Releases---------------------*/
+#music {
+  text-align: center;
+  padding: 40px 0 40px 0;
+}
+.release-row-1 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 75px;
+  padding: 40px;
+
+  @media (max-width: 768px) {
+    .release-row-1 {
+      padding: auto;
+    }
+  }
+}
+.release-row-1 h4 {
+  color: rgb(255, 245, 230);
+  text-align: center;
+  padding-bottom: 20px;
+}
+.release-col {
+  flex: 1 25px;
+  border: solid 20px rgb(55, 55, 55);
+  background-color: rgb(55, 55, 55);
+  border-radius: 25px;
+  transition: background-color 1s, border-color 1s, transform 1s;
+}
+
+.release-col ul {
+  list-style: none;
+  color: rgb(255, 245, 230);
+  text-align: center;
+}
+
+.release-col:hover {
+  background-color: rgb(70, 70, 70);
+  border-color: rgb(70, 70, 70);
+  transform: translateY(-5px);
+}
+
+/*-----------------Shows-------------------------*/
+#shows {
+  text-align: center;
+  padding: 40px 0 10px 0;
+}
+.shows-paragraph {
+  text-align: center;
+  font-style: italic;
+}
+
+/*-----------Merch-------------------------------*/
+#merch {
+  text-align: center;
+  padding: 40px 0 10px 0;
+}
+.merch-link {
+    color: rgb(255, 245, 230);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    border: solid 0 rgb(55, 55, 55);
+    background: rgb(55, 55, 55);
+    width: 225px;
+    height: 65px;
+    margin: auto;
+    margin-bottom: 60px;
+    text-decoration: none;
+}
+
+/*-----------------Footer----------------------*/
+footer {
+    background-color: rgba(55, 55, 55, 0.75);
+    padding: 10px 0 10px 0;
+    margin: 0;
+}
+.footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgba(55, 55, 55, 0);
+  padding-top: 20px;
+}
+.footer-nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav ul li {
+    list-style: none;
+    margin: 5px 40px;
+}
+.footer-nav ul li a {
+    color: rgb(255, 245, 230);
+    text-decoration: none;
+    position: relative;
+    font-size: 15px;
+    transition: .25s ease-in-out;
+}
+.footer-nav ul li a:hover {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+}
+.music-link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 10px;
+    place-items: center;
+    list-style: none;
+    margin: 0 40px;
+}
+.social-col {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+}
+.social-col.spotify {
+  background-image: url(../Images/icons8-spotify.svg);
+}
+.social-col.apple {
+  background-image: url(../Images/apple-music.svg)
+}
+.social-col.youtube {
+  background-image: url(../Images/youtube-svgrepo-com.svg)
+}
+.social-col.soundcloud {
+  background-image: url(../Images/soundcloud-svgrepo-com.svg)
+}
+.music-link a {
+    text-decoration: underline;
+    color: rgb(55, 55, 55);
+}
+.footer-row {
+  color: rgb(255, 245, 230);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 40px;
+}
