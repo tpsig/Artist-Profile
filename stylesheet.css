@@ -1,326 +1,490 @@
+:root {
+  --cream: rgb(255, 245, 230);
+  --card: rgb(255, 250, 240);
+  --ink: rgb(55, 55, 55);
+  --ink-soft: rgb(70, 70, 70);
+  --ink-muted: rgba(55, 55, 55, 0.62);
+  --line: rgba(55, 55, 55, 0.14);
+  --shadow-sm: 0 4px 16px rgba(55, 55, 55, 0.08);
+  --shadow-md: 0 18px 40px rgba(55, 55, 55, 0.16);
+
+  /* Spacing scale — one source of truth for rhythm */
+  --maxw: 1080px;
+  --pad-x: 40px;
+  --section-y: 72px;
+  --heading-gap: 40px;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Averia Serif Libre';
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Averia Serif Libre";
+  box-sizing: border-box;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    color: rgb(55, 55, 55);
-    background-color: rgb(255, 245, 230);
+  color: var(--ink);
+  background-color: var(--cream);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-h1 {
-    font-size: 50px;
-}
+
+/*-----------------Typography---------------------*/
 h2 {
-    font-size: 50px;
+  font-size: 2.4rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.1;
 }
+/* Small accent rule beneath every section heading */
+h2::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin: 18px auto 0 auto;
+  background-color: var(--ink);
+  opacity: 0.45;
+}
+
 .hidden {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1.5s ease-out;
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 1s ease-out,
+    transform 1s ease-out;
 }
 .show {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*-----------------Layout---------------------*/
+/* .container = centering + horizontal gutter only.
+   Vertical rhythm lives on the sections, never here. */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* Every content section gets identical breathing room.
+   The hero <section> has no .hidden class, so it stays full-bleed. */
+section.hidden {
+  padding: var(--section-y) 0;
 }
 
 /*-----------------Header---------------------*/
-#container {
-    padding: 20px 100px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 90%;
+header .container {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    background-color: rgb(255, 245, 230);
-    padding: 5px 0 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background-color: var(--cream);
 }
 nav ul {
-    display: flex;
-    margin: 0;
-    padding: 0 50px;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 nav ul li {
-    list-style: none;
-    margin: 10px 15px;
+  list-style: none;
+  margin: 0 18px;
 }
 nav ul li a {
-    color: rgb(55, 55, 55);
-    text-decoration: none;
-    position: relative;
-    font-size: 20px;
-    transition: .5s ease-in-out;
+  color: var(--ink);
+  text-decoration: none;
+  position: relative;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 5px;
+  transition: color 0.3s ease;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--ink);
+  transition: width 0.35s ease;
 }
 nav ul li a:hover {
-    color: rgb(20, 20, 20);
-    font-size: 21px;
+  color: rgb(20, 20, 20);
+}
+nav ul li a:hover::after {
+  width: 100%;
 }
 .title {
-    font-family: 'Gaegu';
-    font-size: 7rem;
-    color: rgb(55, 55, 55);
-    margin: 0;
-    text-align: center;
+  font-family: "Gaegu";
+  font-size: 6.5rem;
+  color: var(--ink);
+  margin: 0;
+  text-align: center;
+  line-height: 1;
 }
 
-/* Screen Sizing */
-@media (max-width: 768px) {
-    #container {
-      padding: 20px 40px;
-    }
-
-    .title {
-      font-size: 5rem;
-    }
-    nav {
-      padding: 5px 0 40px 0;
-    }
-    nav ul {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    nav ul li {
-      margin: 10px 0;
-    }
-    nav ul li a:hover {
-      color: rgb(20, 20, 20);
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #container {
-      padding: 10px 20px;
-    }
-
-    .title {
-      font-size: 3rem;
-    }
-    nav {
-      padding: 5px 0 40px 0;
-    }
-    nav ul li a {
-      font-size: 15px;
-    }
-    nav ul li a:hover {
-      color: rgb(20, 20, 20);
-      font-size: 16px;
-    }
-  }
-/*-----------------Quote---------------------*/
-.quote-section {
-    width: 100%;
-    height: 0%;
-    background: linear-gradient(rgba(55, 55, 55, 0.5), rgb(55, 55, 55, 0.75));
-    border-radius: 0;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 40px;
-    text-align: center;
-    transition: height 1.1s;
-    overflow: hidden;
-}
-.quote {
-    text-align: center;
-    display: block;
-    color: rgb(255, 245, 230);
+/*-----------------Image protection---------------------*/
+/* Casual-copy deterrents only — anything a browser displays can still be
+   saved by a determined user. Blocks drag-to-save, text selection, and the
+   iOS long-press "Save Image" callout. The contextmenu/dragstart guards
+   live in script.js. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-/*-----------------Image---------------------*/
+/*-----------------Hero / Quote---------------------*/
 .img-container {
-    display: flex;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-    position: relative;
-    justify-content: center;
-    margin-top: -45px;
+  display: flex;
+  width: 100%;
+  height: 560px;
+  overflow: hidden;
+  position: relative;
+  justify-content: center;
+}
+/* Parallax layer — JS translates this on scroll. Slightly oversized
+   (inset -12%) so the vertical travel never exposes a bare edge. */
+.hero-img-wrap {
+  position: absolute;
+  inset: -12% 0;
+  will-change: transform;
 }
 .section-image-1 {
-   display: flex;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    object-position: top;
-    justify-content: center;
-    transition: transform 1.1s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  display: block;
+}
+.quote-section {
+  width: 100%;
+  height: 62%;
+  background: linear-gradient(rgba(55, 55, 55, 0), rgba(55, 55, 55, 0.82));
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px 56px 40px;
+  text-align: center;
+  pointer-events: none;
+}
+/* On-page watermark — display only; not baked into the image file */
+.hero-watermark {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  z-index: 2;
+  color: var(--cream);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  opacity: 0.55;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.quote {
+  text-align: center;
+  display: block;
+  color: var(--cream);
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  max-width: 640px;
+  line-height: 1.3;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+  /* Fade + rise in once, on load */
+  opacity: 0;
+  transform: translateY(24px);
+  animation: quote-in 1.2s ease-out 0.35s forwards;
+}
 
-  @media (max-width: 768px) {
-    .img-container {
-        height: auto;
-    }
+/* Ambient cinematic motion — only for users who haven't asked to reduce it */
+@media (prefers-reduced-motion: no-preference) {
+  .section-image-1 {
+    animation: ken-burns 28s ease-in-out infinite alternate;
   }
 }
-.img-container img {
-    transition: transform 1.5s;
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-1.5%, -2.5%, 0);
+  }
 }
-.img-container img:hover {
-    transform: scale(1.05);
+@keyframes quote-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.img-container.persistent img {
-    transform: scale(1.05);
-}
-.img-container.persistent .quote-section {
-    height: 100%;
+
+/* Accessibility: no drift, no parallax, quote shown immediately */
+@media (prefers-reduced-motion: reduce) {
+  .quote {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 /*-----------------Releases---------------------*/
-#music {
+#music,
+#shows,
+#merch {
   text-align: center;
-  padding: 40px 0 40px 0;
+  margin-bottom: var(--heading-gap);
 }
 .release-row-1 {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   flex-wrap: wrap;
-  gap: 75px;
-  padding: 40px;
-
-  @media (max-width: 768px) {
-    .release-row-1 {
-      padding: auto;
-    }
-  }
-}
-.release-row-1 h4 {
-  color: rgb(255, 245, 230);
-  text-align: center;
-  padding: 20px 0;
+  gap: 28px;
 }
 .release-col {
-  flex: 1 25px;
-  border: solid 20px rgb(55, 55, 55);
-  background-color: rgb(55, 55, 55);
-  border-radius: 25px;
-  transition: background-color 1s, border-color 1s, transform 1s;
+  flex: 1 1 250px;
+  max-width: 300px;
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 34px 30px;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
 }
-
+.release-row-1 h4 {
+  color: var(--ink);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
 .release-col ul {
   list-style: none;
-  color: rgb(255, 245, 230);
+  color: var(--ink-muted);
   text-align: center;
-  padding-bottom: 20px;
+  padding: 0;
 }
-
+.release-col ul li {
+  padding: 7px 0;
+  font-size: 1.02rem;
+}
 .release-col:hover {
-  background-color: rgb(70, 70, 70);
-  border-color: rgb(70, 70, 70);
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(55, 55, 55, 0.25);
 }
 
 /*-----------------Shows-------------------------*/
-#shows {
-  text-align: center;
-  padding: 40px 0 10px 0;
-}
 .shows-paragraph {
-  text-align: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 14px 36px;
+  border: 1px solid var(--line);
+  border-radius: 50px;
   font-style: italic;
+  color: var(--ink-muted);
 }
 
 /*-----------Merch-------------------------------*/
-#merch {
-  text-align: center;
-  padding: 40px 0 10px 0;
-}
 .merch-link {
-    color: rgb(255, 245, 230);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 50px;
-    border: solid 0 rgb(55, 55, 55);
-    background: rgb(55, 55, 55);
-    width: 225px;
-    height: 65px;
-    margin: auto;
-    margin-bottom: 60px;
-    text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 50px;
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  padding: 0 40px;
+  height: 58px;
+  width: fit-content;
+  margin: 0 auto;
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+.merch-link:hover {
+  background: var(--ink);
+  color: var(--cream);
+  transform: translateY(-3px);
 }
 
 /*-----------------Footer----------------------*/
 footer {
-    background-color: rgba(55, 55, 55, 0.75);
-    padding: 10px 0 10px 0;
-    margin: 0;
+  background-color: var(--ink);
+  padding: 52px 0 32px 0;
+  margin: 0;
 }
 .footer-nav {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: rgba(55, 55, 55, 0);
-  padding-top: 20px;
+  margin-bottom: 32px;
+  background-color: transparent;
 }
 .footer-nav ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
-
 .footer-nav ul li {
-    list-style: none;
-    margin: 5px 40px;
+  list-style: none;
+  margin: 6px 24px;
 }
 .footer-nav ul li a {
-    color: rgb(255, 245, 230);
-    text-decoration: none;
-    position: relative;
-    font-size: 15px;
-    transition: .25s ease-in-out;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.88;
+  display: inline-block;
+  transition:
+    opacity 0.25s ease,
+    text-shadow 0.25s ease,
+    transform 0.3s ease;
 }
 .footer-nav ul li a:hover {
-    color: rgb(255, 255, 255);
-    font-size: 16px;
+  /* Light up: full brightness + soft glow, never darker.
+     Re-assert cream so the top-nav `nav ul li a:hover` rule can't darken it. */
+  color: var(--cream);
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(255, 245, 230, 0.5);
+  transform: translateY(-4px);
 }
 .music-link {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 10px;
-    place-items: center;
-    list-style: none;
-    margin: 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
 }
 .social-col {
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  background-size: cover;
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Source SVGs are solid black; force them white so they read on the dark footer */
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+.social-col:hover {
+  transform: translateY(-4px);
+  opacity: 1;
+  /* Light up: full white + soft glow, never darker */
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 245, 230, 0.6));
 }
 .social-col.spotify {
-  background-image: url(../Images/icons8-spotify.svg);
+  background-image: url(Images/icons8-spotify.svg);
 }
 .social-col.apple {
-  background-image: url(../Images/apple-music.svg)
+  background-image: url(Images/apple-music.svg);
 }
 .social-col.youtube {
-  background-image: url(../Images/youtube-svgrepo-com.svg)
+  background-image: url(Images/youtube-svgrepo-com.svg);
 }
 .social-col.soundcloud {
-  background-image: url(../Images/soundcloud-svgrepo-com.svg)
-}
-.music-link a {
-    text-decoration: underline;
-    color: rgb(55, 55, 55);
+  background-image: url(Images/soundcloud-svgrepo-com.svg);
 }
 .footer-row {
-  color: rgb(255, 245, 230);
+  color: var(--cream);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 40px;
+  padding-top: 40px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/*-----------------Responsive---------------------*/
+@media (max-width: 768px) {
+  :root {
+    --section-y: 56px;
+    --heading-gap: 32px;
+    --pad-x: 24px;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  .title {
+    font-size: 5rem;
+  }
+  nav {
+    justify-content: center;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  nav ul li {
+    margin: 4px 0;
+  }
+  .img-container {
+    height: 440px;
+  }
+  .quote {
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-y: 48px;
+    --pad-x: 20px;
+  }
+  .title {
+    font-size: 3.6rem;
+  }
+  .quote {
+    font-size: 1.6rem;
+  }
 }
