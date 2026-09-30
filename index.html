@@ -3,138 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tate's portfolio across software engineering, biblical studies, and music.">
     <link rel="stylesheet" href="stylesheet.css">
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Gaegu' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Averia Serif Libre' rel='stylesheet'>
-    <title>tate</title>
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Averia+Serif+Libre" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <title>Tate — Portfolio</title>
 </head>
-
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <ul class="menu">
-                    <li><a href="#music">Music</a></li>
-                    <li><a href="#merch">Merch</a></li>
-                </ul>
-                <h1 class="title">tate</h1>
-                <ul class="menu">
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="Subpages/artist-cart.html">Cart</a></li>
-                </ul>
-            </nav>
-            <!-- Only Use Logo If Needed -->
-            <!--<img src="" alt="" class="logo">-->
-        </div>
-    </header>
-
-    <section>
-        <div class="img-container" id="img-container">
-            <div class="hero-img-wrap" id="hero-img-wrap">
-                <img src="Images/banner.jpeg" class="section-image-1" alt="Tate">
-            </div>
-            <div class="quote-section">
-                <h1 class="quote">i look for the breeze but it's all still...</h1>
-            </div>
-            <span class="hero-watermark">© tate</span>
-        </div>
-    </section>
-
-    <section class="hidden">
-        <div class="container">
-            <h2 id="music">Releases</h2>
-                <div class="release-row-1">
-                    <div class="release-col release-col-1">
-                        <h4>Finding My Way</h4>
-                            <ul>
-                                <li>summer nights</li>
-                                <li>burnt flowers</li>
-                                <li>epitaph</li>
-                                <li>just one more</li>
-                                <li>finding my way</li>
-                            </ul>
-                    </div>
-                    <div class="release-col release-col-2">
-                        <h4>Reimagine</h4>
-                            <ul>
-                                <li>glimpse of us</li>
-                                <li>the scientist</li>
-                                <li>yesterday</li>
-                                <li>die for you</li>
-                                <li>falling in love</li>
-                                <li>not a king</li>
-                                <li>place in me</li>
-                                <li>like you do</li>
-                            </ul>
-                    </div>
-                    <div class="release-col release-col-3">
-                        <h4>finding the sun on rainy days</h4>
-                            <ul>
-                                <li>can i do this on my own</li>
-                                <li>hazel eyes</li>
-                                <li>you remain</li>
-                                <li>new life</li>
-                                <li>mirror</li>
-                                <li>im alright</li>
-                                <li>worthy</li>
-                                <li>from foothills to redrocks</li>
-                            </ul>
+    <main id="home">
+        <section class="hero" aria-label="Areas of work">
+            <div class="hero-stage">
+                <div class="phrase-field" role="group" aria-label="Areas of work">
+                    <span class="moving-phrase phrase-one">biblical studies</span>
+                    <span class="moving-phrase phrase-three">software engineering</span>
+                    <span class="moving-phrase phrase-five">writing songs</span>
+                </div>
+                <div class="hero-content container" aria-label="Introduction" inert>
+                    <div class="bio-layout">
+                        <div class="bio-copy">
+                            <p class="eyebrow">serving Christ.</p>
+                            <h1>---<br><em>---</em></h1>
+                            <p class="hero-copy">I’m Tate. I am a seminary student who codes and makes music. This is a home for the different things I care about and the work I’m doing along the way.</p>
+                            <a class="text-link" href="#software">Explore my work <span aria-hidden="true">↓</span></a>
+                        </div>
+                        <img class="bio-portrait" src="Images/banner.jpeg" alt="Tate professionally dressed, smiling at the camera."/>
                     </div>
                 </div>
-        </div>
-    </section>
+                <span class="hero-credit">© Tate</span>
+            </div>
+        </section>
 
-    <section class="hidden">
-        <div class="container">
-            <h2 id="shows">Shows</h2>
-                <p class="shows-paragraph">No upcoming shows</p>
-        </div>
-    </section>
+        <section class="portfolio-section studies-section section-wrap" id="biblical-studies">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">01 / Studying</p>
+                    <h2>Biblical Studies</h2>
+                    <p class="section-lede">I’m drawn to careful study of Scripture, its historical context, and how it shapes the way we live.</p>
+                </div>
+                <div class="detail-grid">
+                    <article class="detail-card"><span class="card-index">01</span><h3>Education</h3><p>Reformed Theological Seminary (Current)<br>Master of Divinity<br><br>Anderson University (2026)<br><em>Bachelor of Arts in Christian Studies</em></p></article>
+                    <article class="detail-card"><span class="card-index">02</span><h3>Experience</h3><p>Add ministry, teaching, service, or other related roles and experiences.</p></article>
+                    <article class="detail-card"><span class="card-index">03</span><h3>Skills &amp; Interests</h3><p>Share the subjects, languages, and approaches to study that interest you.</p></article>
+                    <article class="detail-card"><span class="card-index">04</span><h3>Where I’m Headed</h3><p>Describe what you hope to study, contribute, or pursue next.</p></article>
+                </div>
+            </div>
+        </section>
 
-    <section class="hidden">
-        <div class="container">
-            <h2 id="merch">Merch</h2>
-            <a href="Subpages/artist-merch.html" class="merch-link">Full Shop Coming Soon</a>
-        </div>
-    </section>
+        <section class="portfolio-section section-wrap" id="software">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">02 / Building</p>
+                    <h2>Software Engineering</h2>
+                    <p class="section-lede">I enjoy turning my imagination into reality.</p>
+                </div>
+                <div class="detail-grid">
+                    <article class="detail-card"><span class="card-index">01</span><h3>Education</h3><p>Anderson University (2026)<br><em>Bachelor of Science in Coding: Application Development</em></p></article>
+                    <article class="detail-card"><span class="card-index">02</span><h3>Experience</h3><p>Elevation Church (2026)<br><em>Software Engineer Intern</em><br><br>Power of Patients (2026)<br><em>Software Engineer Intern</em></p></article>
+                    <article class="detail-card"><span class="card-index">03</span><h3>Skills</h3><p>Languages<br><em>JavaScript, Typescript, Swift, Kotlin, Java, C#, Python</em><br><br>Programs<br><em>Node.js, Next.js, PostgreSQL, GitHub, Docker, Figma, Adobe Creative Suite</em></p></article>
+                    <article class="detail-card"><span class="card-index">04</span><h3>Projects</h3><p>Portfolio Website<br><em>Website about me</em><br><br>Updated Patient Dashboard<br><em>Improved UI and UX</em><br><br>Bible Bookshelf<br><em>A mobile app for the themes of the Bible</em></p></article>
+                </div>
+            </div>
+        </section>
+
+        <section class="music-section section-wrap" id="music">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">03 / Making</p>
+                    <h2>Writing Songs</h2>
+                    <p class="section-lede">Songs and records released as tate. Listen wherever you like.</p>
+                </div>
+                <div class="release-grid">
+                    <article class="release-card"><span class="release-type">EP</span><h3>Finding My Way</h3><p>summer nights · burnt flowers · epitaph · just one more · finding my way</p></article>
+                    <article class="release-card"><span class="release-type">Album</span><h3>Reimagine</h3><p>glimpse of us · the scientist · yesterday · die for you · falling in love · not a king · place in me · like you do</p></article>
+                    <article class="release-card"><span class="release-type">Album</span><h3>finding the sun on rainy days</h3><p>can i do this on my own · hazel eyes · you remain · new life · mirror · im alright · worthy · from foothills to redrocks</p></article>
+                </div>
+                <div class="platform-links" aria-label="Listen to Tate">
+                    <a href="https://open.spotify.com/artist/39nPJNXA7Tc9qAFqmxqHkt?si=zQ7_zjJdRmWudgU5OZOIOA" target="_blank" rel="noopener noreferrer">Spotify <span>↗</span></a>
+                    <a href="https://music.apple.com/us/artist/tate/1750100043" target="_blank" rel="noopener noreferrer">Apple Music <span>↗</span></a>
+                    <a href="https://www.youtube.com/channel/UCn0WAYXkBbhU1kMtiWtx-Hw" target="_blank" rel="noopener noreferrer">YouTube <span>↗</span></a>
+                    <a href="https://on.soundcloud.com/yL1FqjJ2HT2Y2gjg8" target="_blank" rel="noopener noreferrer">SoundCloud <span>↗</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section section-wrap" id="contact">
+            <div class="container contact-inner">
+                <p class="eyebrow">04 / Say hello</p>
+                <h2>Let’s make a connection.</h2>
+                <p>Have a project in mind, want to talk about biblical studies, or just want to say hi? I’d love to hear from you.</p>
+                <a class="contact-link" href="mailto:?subject=Hello%20Tate">Get in touch <span aria-hidden="true">↗</span></a>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <div class="container">
-            <div id="contact"></div>
-            <nav class="footer-nav">
-                <ul>
-                    <li><a href="#music">Music</a></li>
-                    <li><a href="#merch">Merch</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="Subpages/artist-cart.html">Cart</a></li>
-                </ul>
-            </nav>
-            <ul class="music-link">
-                <li><a href="https://open.spotify.com/artist/39nPJNXA7Tc9qAFqmxqHkt?si=zQ7_zjJdRmWudgU5OZOIOA"
-                       target="_blank" class="social-col spotify">
-                    </a></li>
-                <li><a href="https://music.apple.com/us/artist/tate/1750100043"
-                       target="_blank" class="social-col apple">
-
-                    </a></li>
-                <li><a href="https://www.youtube.com/channel/UCn0WAYXkBbhU1kMtiWtx-Hw"
-                       target="_blank" class="social-col youtube">
-
-                    </a></li>
-                <li><a href="https://on.soundcloud.com/yL1FqjJ2HT2Y2gjg8"
-                       target="_blank" class="social-col soundcloud">
-
-                    </a></li>
-            </ul>
-        </div>
-        <div class="container">
-            <div class="footer-row">
-                <h6>© 2025 Tate. All rights reserved.</h6>
-            </div>
-        </div>
+        <div class="container footer-inner"><a class="footer-name" href="#home">tate.</a><p>Made with curiosity · © 2026 Tate</p><a href="#home">Back to top ↑</a></div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

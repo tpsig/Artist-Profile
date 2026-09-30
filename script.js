@@ -57,3 +57,58 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", checkScroll);
     checkScroll();
 });
+
+// Phrase-field choreography //
+// The phrases drift in the opening view, then gather into a typographic
+// stack as the hero scrolls toward the introduction.
+const phraseHero = document.querySelector(".hero");
+const phraseStage = document.querySelector(".hero-stage");
+const phraseNodes = [...document.querySelectorAll(".moving-phrase")];
+const bioContent = document.querySelector(".hero-content");
+const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (phraseHero && phraseStage && phraseNodes.length) {
+    function cssLengthInPixels(value) {
+        const number = parseFloat(value) || 0;
+        if (value.includes("vw")) return window.innerWidth * number / 100;
+        if (value.includes("vh")) return window.innerHeight * number / 100;
+        return number;
+    }
+
+    const starts = phraseNodes.map((node) => ({
+        x: cssLengthInPixels(getComputedStyle(node).getPropertyValue("--start-x")),
+        y: cssLengthInPixels(getComputedStyle(node).getPropertyValue("--start-y"))
+    }));
+    let framePending = false;
+
+    function updatePhraseField() {
+        const range = Math.max(1, phraseHero.offsetHeight - phraseStage.offsetHeight);
+        const progress = Math.max(0, Math.min(1, -phraseHero.getBoundingClientRect().top / range));
+        phraseNodes.forEach((node, index) => {
+            const phraseProgress = motionPreference.matches ? 1 : Math.max(0, Math.min(1, (progress - index * 0.08) / 0.62));
+            const drift = motionPreference.matches ? 0 : 1 - phraseProgress;
+            const x = starts[index].x * (1 - phraseProgress) + Math.sin(Date.now() / 1100 + index * 2) * 30 * drift;
+            const y = starts[index].y * (1 - phraseProgress) + Math.cos(Date.now() / 1300 + index * 2) * 24 * drift;
+            node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            node.style.opacity = "1";
+        });
+        if (bioContent) {
+            const showBio = progress >= 0.78;
+            bioContent.classList.toggle("is-visible", showBio);
+            bioContent.inert = !showBio;
+        }
+        framePending = false;
+    }
+
+    function requestPhraseUpdate() {
+        if (!framePending) {
+            framePending = true;
+            window.requestAnimationFrame(updatePhraseField);
+        }
+    }
+
+    window.addEventListener("scroll", requestPhraseUpdate, { passive: true });
+    window.addEventListener("resize", requestPhraseUpdate);
+    if (!motionPreference.matches) window.setInterval(requestPhraseUpdate, 50);
+    requestPhraseUpdate();
+}
