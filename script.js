@@ -127,3 +127,46 @@ if (studiesTimeline && timelineCards.length && "IntersectionObserver" in window)
 } else {
     timelineCards.forEach((card) => card.classList.add("is-visible"));
 }
+
+// Keep the laptop screen in step with the scroll landmarks beneath it.
+const laptopJourney = document.querySelector(".laptop-journey");
+if (laptopJourney) {
+    const laptopCards = [...laptopJourney.querySelectorAll("[data-laptop-card]")];
+    const laptopSteps = [...laptopJourney.querySelectorAll("[data-laptop-step]")];
+    const staticLaptop = window.matchMedia("(max-width: 600px), (prefers-reduced-motion: reduce)");
+
+    if (staticLaptop.matches || !("IntersectionObserver" in window)) {
+        laptopCards.forEach((card) => {
+            card.setAttribute("aria-hidden", "false");
+            card.inert = false;
+        });
+    } else {
+        laptopJourney.classList.add("has-laptop-scroll");
+        const laptopObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const index = laptopSteps.indexOf(entry.target);
+                laptopCards.forEach((card, cardIndex) => {
+                    const active = cardIndex === index;
+                    card.classList.toggle("is-active", active);
+                    card.setAttribute("aria-hidden", String(!active));
+                    card.inert = !active;
+                });
+                laptopSteps.forEach((step, stepIndex) => {
+                    step.classList.toggle("is-active", stepIndex === index);
+                });
+            });
+        }, { threshold: 0, rootMargin: "-48% 0px -48% 0px" });
+        laptopSteps.forEach((step) => laptopObserver.observe(step));
+
+        staticLaptop.addEventListener("change", (event) => {
+            if (!event.matches) return;
+            laptopJourney.classList.remove("has-laptop-scroll");
+            laptopObserver.disconnect();
+            laptopCards.forEach((card) => {
+                card.setAttribute("aria-hidden", "false");
+                card.inert = false;
+            });
+        });
+    }
+}

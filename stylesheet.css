@@ -432,6 +432,123 @@ a {
 .studies-section .detail-card:hover {
   box-shadow: 0 12px 32px rgba(38, 53, 47, 0.08);
 }
+.software-section .section-heading {
+  margin-bottom: 32px;
+  padding-top: 24px;
+}
+.software-section {
+  padding-bottom: 0;
+}
+.software-section > .container {
+  padding-bottom: clamp(76px, 10vw, 132px);
+}
+.laptop-journey {
+  position: relative;
+  max-width: 980px;
+  margin-inline: auto;
+}
+.software-pin {
+  position: sticky;
+  z-index: 2;
+  top: 10px;
+}
+.laptop-pin {
+  display: grid;
+  justify-items: center;
+  padding-block: 12px 24px;
+}
+.laptop {
+  width: min(100%, 760px);
+  padding: 16px 16px 0;
+  border: 1px solid rgba(38, 53, 47, 0.3);
+  border-radius: 18px 18px 7px 7px;
+  background: #d9d8d0;
+  box-shadow: 0 24px 55px rgba(38, 53, 47, 0.16);
+}
+.laptop-camera {
+  width: 5px;
+  height: 5px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: #788079;
+}
+.laptop-screen {
+  position: relative;
+  display: grid;
+  min-height: clamp(270px, 39vw, 390px);
+  overflow: hidden;
+  padding: clamp(28px, 6vw, 72px);
+  border: 1px solid rgba(38, 53, 47, 0.16);
+  background: var(--paper-light);
+}
+.laptop-card {
+  grid-area: 1 / 1;
+  align-self: center;
+  width: min(100%, 520px);
+  margin-inline: auto;
+  padding: 18px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.laptop-card h3 {
+  margin-top: 20px;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.laptop-card p {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  line-height: 1.8;
+}
+.has-laptop-scroll .laptop-card {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+.has-laptop-scroll .laptop-card.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.laptop-base {
+  position: relative;
+  height: 19px;
+  margin-inline: -32px;
+  border: 1px solid rgba(38, 53, 47, 0.24);
+  border-radius: 2px 2px 15px 15px;
+  background: linear-gradient(#c9c9c2, #b9bab3);
+}
+.laptop-base span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 18%;
+  height: 6px;
+  border-radius: 0 0 8px 8px;
+  background: rgba(38, 53, 47, 0.16);
+  transform: translateX(-50%);
+}
+.laptop-hint {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.laptop-hint span {
+  display: inline-block;
+  margin-left: 7px;
+  color: var(--accent);
+}
+.laptop-steps {
+  margin-top: -130px;
+}
+.laptop-step {
+  height: 78vh;
+}
 .release-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -660,6 +777,48 @@ footer {
   .release-grid {
     grid-template-columns: 1fr;
   }
+  .software-pin {
+    position: relative;
+    top: auto;
+  }
+  .laptop-pin {
+    position: relative;
+    top: auto;
+    padding-bottom: 12px;
+  }
+  .laptop {
+    padding: 12px 12px 0;
+    border-radius: 13px 13px 5px 5px;
+  }
+  .laptop-screen {
+    min-height: 0;
+    padding: 20px 14px;
+  }
+  .laptop-card,
+  .has-laptop-scroll .laptop-card,
+  .has-laptop-scroll .laptop-card.is-active {
+    grid-area: auto;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    padding: 20px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .laptop-card:last-child {
+    border-bottom: 0;
+  }
+  .laptop-base {
+    height: 13px;
+    margin-inline: -22px;
+  }
+  .laptop-base span {
+    height: 4px;
+  }
+  .laptop-hint,
+  .laptop-steps {
+    display: none;
+  }
   .release-card {
     min-height: auto;
   }
@@ -670,6 +829,33 @@ footer {
   .footer-inner p {
     order: 3;
     width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .software-pin {
+    position: relative;
+    top: auto;
+  }
+  .laptop-pin {
+    position: relative;
+    top: auto;
+  }
+  .laptop-steps {
+    display: none;
+  }
+  .laptop-card,
+  .has-laptop-scroll .laptop-card,
+  .has-laptop-scroll .laptop-card.is-active {
+    grid-area: auto;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    padding: 22px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .laptop-card:last-child {
+    border-bottom: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
