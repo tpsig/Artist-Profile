@@ -112,3 +112,18 @@ if (phraseHero && phraseStage && phraseNodes.length) {
     if (!motionPreference.matches) window.setInterval(requestPhraseUpdate, 50);
     requestPhraseUpdate();
 }
+
+// Bring each Biblical Studies card onto its timeline mark as it enters view.
+const studiesTimeline = document.querySelector(".studies-section");
+const timelineCards = [...document.querySelectorAll(".studies-section .detail-card")];
+if (studiesTimeline && timelineCards.length && "IntersectionObserver" in window) {
+    studiesTimeline.classList.add("timeline-ready");
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    timelineCards.forEach((card) => timelineObserver.observe(card));
+} else {
+    timelineCards.forEach((card) => card.classList.add("is-visible"));
+}

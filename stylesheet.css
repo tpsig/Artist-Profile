@@ -176,21 +176,21 @@ a {
   --target-x: 0%;
   --target-y: 12%;
   --start-x: 0vw;
-  --start-y: 24vh;
+  --start-y: 36vh;
   color: var(--accent);
 }
 .phrase-three {
   --target-x: 33.333%;
   --target-y: 12%;
   --start-x: 0vw;
-  --start-y: 7vh;
+  --start-y: 14vh;
   color: var(--accent);
 }
 .phrase-five {
   --target-x: 66.666%;
   --target-y: 12%;
   --start-x: 0vw;
-  --start-y: 24vh;
+  --start-y: 36vh;
   color: var(--accent);
 }
 .phrase-caption {
@@ -331,10 +331,106 @@ a {
   line-height: 1.65;
 }
 .studies-section {
-  background: #e9ede6;
+  /*background: #e9ede6;*/
+}
+.studies-section .detail-grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 860px;
+  margin-inline: auto;
+  border: 0;
+}
+.studies-section .detail-grid::before {
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(189, 107, 72, 0.55) 8%,
+    rgba(189, 107, 72, 0.55) 92%,
+    transparent
+  );
+  content: "";
+  transform: translateX(-50%);
 }
 .studies-section .detail-card {
-  border-color: rgba(38, 53, 47, 0.14);
+  position: relative;
+  width: calc(50% - 44px);
+  min-height: 0;
+  padding: 25px 30px;
+  border: 1px solid rgba(38, 53, 47, 0.14);
+  background: rgba(251, 249, 244, 0.72);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.4s ease;
+}
+.studies-section .detail-card::before {
+  position: absolute;
+  top: 31px;
+  left: calc(100% + 36px);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--paper-light);
+  box-shadow: 0 0 0 5px rgba(189, 107, 72, 0.08);
+  content: "";
+  transform: scale(0.6);
+  transition:
+    background 0.45s ease,
+    box-shadow 0.45s ease,
+    transform 0.45s ease;
+}
+.studies-section.timeline-ready .detail-card {
+  opacity: 0;
+  transform: translate3d(-32px, 16px, 0) scale(0.985);
+}
+.studies-section .detail-card:nth-child(even) {
+  align-self: flex-end;
+}
+.studies-section .detail-card:nth-child(even)::before {
+  left: -52px;
+}
+.studies-section.timeline-ready .detail-card:nth-child(even) {
+  transform: translate3d(32px, 16px, 0) scale(0.985);
+}
+.studies-section.timeline-ready .detail-card.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.studies-section .detail-card.is-visible::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 6px rgba(189, 107, 72, 0.12);
+  transform: scale(1);
+}
+.studies-section.timeline-ready .detail-card:nth-child(2) {
+  transition-delay: 0.06s;
+}
+.studies-section.timeline-ready .detail-card:nth-child(3) {
+  transition-delay: 0.12s;
+}
+.studies-section.timeline-ready .detail-card:nth-child(4) {
+  transition-delay: 0.18s;
+}
+.studies-section .detail-card:first-child,
+.studies-section .detail-card:last-child {
+  padding-inline: 30px;
+}
+.studies-section .detail-card:last-child {
+  border-right: 1px solid rgba(38, 53, 47, 0.14);
+}
+.studies-section .detail-card:nth-child(n) {
+  border-right: 1px solid rgba(38, 53, 47, 0.14);
+  border-bottom: 1px solid rgba(38, 53, 47, 0.14);
+}
+.studies-section .detail-card:hover {
+  box-shadow: 0 12px 32px rgba(38, 53, 47, 0.08);
 }
 .release-grid {
   display: grid;
@@ -516,6 +612,28 @@ footer {
     --target-y: 21%;
     --start-x: 0vw;
     --start-y: -13vh;
+  }
+  .studies-section .detail-grid {
+    padding-left: 50px;
+  }
+  .studies-section .detail-grid::before {
+    left: 17px;
+    transform: none;
+  }
+  .studies-section .detail-card,
+  .studies-section .detail-card:nth-child(even) {
+    width: 100%;
+    align-self: stretch;
+  }
+  .studies-section .detail-card::before,
+  .studies-section .detail-card:nth-child(even)::before {
+    left: -41px;
+  }
+  .studies-section.timeline-ready .detail-card:nth-child(even) {
+    transform: translate3d(-32px, 16px, 0) scale(0.985);
+  }
+  .studies-section.timeline-ready .detail-card:nth-child(even).is-visible {
+    transform: none;
   }
   .phrase-caption {
     right: 7%;
