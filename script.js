@@ -170,3 +170,55 @@ if (laptopJourney) {
         });
     }
 }
+
+// Write the music heading into view once, then let the notebook open with scroll.
+const musicHeading = document.querySelector("[data-typewriter]");
+if (musicHeading && !motionPreference.matches && "IntersectionObserver" in window) {
+    const headingObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+            musicHeading.classList.add("is-writing");
+            headingObserver.disconnect();
+        }
+    }, { threshold: 0.6 });
+    headingObserver.observe(musicHeading);
+}
+
+const notebookJourney = document.querySelector("[data-notebook-journey]");
+if (notebookJourney) {
+    const notebookCover = notebookJourney.querySelector(".notebook-cover");
+    const notebookPages = notebookJourney.querySelector(".notebook-pages");
+    const notebookStage = notebookJourney.querySelector(".notebook-stage");
+    const notebookTracks = [...notebookJourney.querySelectorAll(".notebook-track-list li span")];
+    if (motionPreference.matches || !("IntersectionObserver" in window)) {
+        notebookCover.style.transform = "rotateY(-155deg)";
+    } else {
+        notebookJourney.classList.add("notebook-motion-ready");
+        notebookCover.style.transform = "rotateY(0deg)";
+        let notebookFramePending = false;
+
+        function updateNotebook() {
+            const bounds = notebookJourney.getBoundingClientRect();
+            const start = window.innerHeight * 0.08;
+            const scrollRange = Math.max(1, notebookJourney.offsetHeight - notebookStage.offsetHeight);
+            const progress = Math.max(0, Math.min(1, (start - bounds.top) / scrollRange));
+            const opening = Math.max(0, Math.min(1, (progress - 0.12) / 0.38));
+            notebookCover.style.transform = `rotateY(${-155 * opening}deg)`;
+            notebookPages.style.opacity = String(opening);
+            notebookTracks.forEach((track, index) => {
+                const writing = Math.max(0, Math.min(1, (progress - 0.53 - index * 0.055) / 0.05));
+                track.style.clipPath = `inset(0 ${(1 - writing) * 100}% 0 0)`;
+            });
+            notebookFramePending = false;
+        }
+
+        function requestNotebookUpdate() {
+            if (notebookFramePending) return;
+            notebookFramePending = true;
+            window.requestAnimationFrame(updateNotebook);
+        }
+
+        window.addEventListener("scroll", requestNotebookUpdate, { passive: true });
+        window.addEventListener("resize", requestNotebookUpdate);
+        requestNotebookUpdate();
+    }
+}
