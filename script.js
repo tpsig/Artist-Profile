@@ -57,3 +57,168 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", checkScroll);
     checkScroll();
 });
+
+// Phrase-field choreography //
+// The phrases drift in the opening view, then gather into a typographic
+// stack as the hero scrolls toward the introduction.
+const phraseHero = document.querySelector(".hero");
+const phraseStage = document.querySelector(".hero-stage");
+const phraseNodes = [...document.querySelectorAll(".moving-phrase")];
+const bioContent = document.querySelector(".hero-content");
+const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (phraseHero && phraseStage && phraseNodes.length) {
+    function cssLengthInPixels(value) {
+        const number = parseFloat(value) || 0;
+        if (value.includes("vw")) return window.innerWidth * number / 100;
+        if (value.includes("vh")) return window.innerHeight * number / 100;
+        return number;
+    }
+
+    const starts = phraseNodes.map((node) => ({
+        x: cssLengthInPixels(getComputedStyle(node).getPropertyValue("--start-x")),
+        y: cssLengthInPixels(getComputedStyle(node).getPropertyValue("--start-y"))
+    }));
+    let framePending = false;
+
+    function updatePhraseField() {
+        const range = Math.max(1, phraseHero.offsetHeight - phraseStage.offsetHeight);
+        const progress = Math.max(0, Math.min(1, -phraseHero.getBoundingClientRect().top / range));
+        phraseNodes.forEach((node, index) => {
+            const phraseProgress = motionPreference.matches ? 1 : Math.max(0, Math.min(1, (progress - index * 0.08) / 0.62));
+            const drift = motionPreference.matches ? 0 : 1 - phraseProgress;
+            const x = starts[index].x * (1 - phraseProgress) + Math.sin(Date.now() / 1100 + index * 2) * 30 * drift;
+            const y = starts[index].y * (1 - phraseProgress) + Math.cos(Date.now() / 1300 + index * 2) * 24 * drift;
+            node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            node.style.opacity = "1";
+        });
+        if (bioContent) {
+            const showBio = progress >= 0.78;
+            bioContent.classList.toggle("is-visible", showBio);
+            bioContent.inert = !showBio;
+        }
+        framePending = false;
+    }
+
+    function requestPhraseUpdate() {
+        if (!framePending) {
+            framePending = true;
+            window.requestAnimationFrame(updatePhraseField);
+        }
+    }
+
+    window.addEventListener("scroll", requestPhraseUpdate, { passive: true });
+    window.addEventListener("resize", requestPhraseUpdate);
+    if (!motionPreference.matches) window.setInterval(requestPhraseUpdate, 50);
+    requestPhraseUpdate();
+}
+
+// Bring each Biblical Studies card onto its timeline mark as it enters view.
+const studiesTimeline = document.querySelector(".studies-section");
+const timelineCards = [...document.querySelectorAll(".studies-section .detail-card")];
+if (studiesTimeline && timelineCards.length && "IntersectionObserver" in window) {
+    studiesTimeline.classList.add("timeline-ready");
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    timelineCards.forEach((card) => timelineObserver.observe(card));
+} else {
+    timelineCards.forEach((card) => card.classList.add("is-visible"));
+}
+
+// Keep the laptop screen in step with the scroll landmarks beneath it.
+const laptopJourney = document.querySelector(".laptop-journey");
+if (laptopJourney) {
+    const laptopCards = [...laptopJourney.querySelectorAll("[data-laptop-card]")];
+    const laptopSteps = [...laptopJourney.querySelectorAll("[data-laptop-step]")];
+    const staticLaptop = window.matchMedia("(max-width: 600px), (prefers-reduced-motion: reduce)");
+
+    if (staticLaptop.matches || !("IntersectionObserver" in window)) {
+        laptopCards.forEach((card) => {
+            card.setAttribute("aria-hidden", "false");
+            card.inert = false;
+        });
+    } else {
+        laptopJourney.classList.add("has-laptop-scroll");
+        const laptopObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const index = laptopSteps.indexOf(entry.target);
+                laptopCards.forEach((card, cardIndex) => {
+                    const active = cardIndex === index;
+                    card.classList.toggle("is-active", active);
+                    card.setAttribute("aria-hidden", String(!active));
+                    card.inert = !active;
+                });
+                laptopSteps.forEach((step, stepIndex) => {
+                    step.classList.toggle("is-active", stepIndex === index);
+                });
+            });
+        }, { threshold: 0, rootMargin: "-48% 0px -48% 0px" });
+        laptopSteps.forEach((step) => laptopObserver.observe(step));
+
+        staticLaptop.addEventListener("change", (event) => {
+            if (!event.matches) return;
+            laptopJourney.classList.remove("has-laptop-scroll");
+            laptopObserver.disconnect();
+            laptopCards.forEach((card) => {
+                card.setAttribute("aria-hidden", "false");
+                card.inert = false;
+            });
+        });
+    }
+}
+
+// Write the music heading into view once, then let the notebook open with scroll.
+const musicHeading = document.querySelector("[data-typewriter]");
+if (musicHeading && !motionPreference.matches && "IntersectionObserver" in window) {
+    const headingObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+            musicHeading.classList.add("is-writing");
+            headingObserver.disconnect();
+        }
+    }, { threshold: 0.6 });
+    headingObserver.observe(musicHeading);
+}
+
+const notebookJourney = document.querySelector("[data-notebook-journey]");
+if (notebookJourney) {
+    const notebookCover = notebookJourney.querySelector(".notebook-cover");
+    const notebookPages = notebookJourney.querySelector(".notebook-pages");
+    const notebookStage = notebookJourney.querySelector(".notebook-stage");
+    const notebookTracks = [...notebookJourney.querySelectorAll(".notebook-track-list li span")];
+    if (motionPreference.matches || !("IntersectionObserver" in window)) {
+        notebookCover.style.transform = "rotateY(-155deg)";
+    } else {
+        notebookJourney.classList.add("notebook-motion-ready");
+        notebookCover.style.transform = "rotateY(0deg)";
+        let notebookFramePending = false;
+
+        function updateNotebook() {
+            const bounds = notebookJourney.getBoundingClientRect();
+            const start = window.innerHeight * 0.08;
+            const scrollRange = Math.max(1, notebookJourney.offsetHeight - notebookStage.offsetHeight);
+            const progress = Math.max(0, Math.min(1, (start - bounds.top) / scrollRange));
+            const opening = Math.max(0, Math.min(1, (progress - 0.12) / 0.38));
+            notebookCover.style.transform = `rotateY(${-155 * opening}deg)`;
+            notebookPages.style.opacity = String(opening);
+            notebookTracks.forEach((track, index) => {
+                const writing = Math.max(0, Math.min(1, (progress - 0.53 - index * 0.055) / 0.05));
+                track.style.clipPath = `inset(0 ${(1 - writing) * 100}% 0 0)`;
+            });
+            notebookFramePending = false;
+        }
+
+        function requestNotebookUpdate() {
+            if (notebookFramePending) return;
+            notebookFramePending = true;
+            window.requestAnimationFrame(updateNotebook);
+        }
+
+        window.addEventListener("scroll", requestNotebookUpdate, { passive: true });
+        window.addEventListener("resize", requestNotebookUpdate);
+        requestNotebookUpdate();
+    }
+}
